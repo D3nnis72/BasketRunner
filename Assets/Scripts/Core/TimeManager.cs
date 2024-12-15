@@ -28,7 +28,6 @@ public class TimeManager : MonoBehaviour
 
     private void UpdateTimeScale()
     {
-        // Use an AnimationCurve to control difficulty scaling
         float newTimeScale = speedCurve.Evaluate(currentScore);
 
         Time.timeScale = Mathf.Clamp(newTimeScale, baseTimeScale, maxTimeScale);
@@ -45,7 +44,7 @@ public class TimeManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        ResetTimeScale(); // Reset time scale when the TimeManager is destroyed
+        ResetTimeScale();
     }
 
     private void InitializeSingleton()

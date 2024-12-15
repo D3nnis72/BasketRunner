@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _rotationSpeed = 5f;
     [SerializeField] private float _laneSwitchSpeed = 10f;
-    [SerializeField] private float gravity = -9.81f; // Gravity force
+    [SerializeField] private float gravity = -9.81f;
 
     [Header("Appearance Settings")]
     [SerializeField] private Renderer _swordMeshRenderer;
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _startPosition;
 
     public Vector3 Velocity { get; private set; }
-    private float verticalVelocity = 0f; // Tracks vertical movement
+    private float verticalVelocity = 0f;
 
     private void Start()
     {
@@ -115,30 +115,28 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        // Calculate forward movement
         Vector3 forwardMovement = Vector3.forward * _moveSpeed * Time.deltaTime;
 
-        // Apply gravity
+
         if (_controller.isGrounded)
         {
-            verticalVelocity = 0f; // Reset vertical velocity when on the ground
+            verticalVelocity = 0f;
         }
         else
         {
-            verticalVelocity += gravity * Time.deltaTime; // Apply gravity over time
+            verticalVelocity += gravity * Time.deltaTime;
         }
 
-        // Smoothly move horizontally to the target lane position
+
         Vector3 lateralMovement = new Vector3(
             Mathf.Lerp(transform.position.x, _targetPosition.x, _laneSwitchSpeed * Time.deltaTime),
-            verticalVelocity * Time.deltaTime, // Include vertical movement due to gravity
+            verticalVelocity * Time.deltaTime,
             transform.position.z
         );
 
-        // Combine forward and lateral movement
         Vector3 movement = forwardMovement + (lateralMovement - transform.position);
 
-        _playerAnimator.PlayWalkingAnimation(1f); // Ensure animations are triggered correctly
+        _playerAnimator.PlayWalkingAnimation(1f);
 
         MovePlayer(movement);
     }
@@ -146,11 +144,11 @@ public class PlayerController : MonoBehaviour
     {
         if (_controller.isGrounded && verticalVelocity < 0)
         {
-            verticalVelocity = 0f; // Reset vertical velocity if grounded
+            verticalVelocity = 0f;
         }
 
         movement.y = verticalVelocity * Time.deltaTime;
-        _controller.Move(movement); // Move the character
+        _controller.Move(movement);
     }
 
     private void HandleColorChange()

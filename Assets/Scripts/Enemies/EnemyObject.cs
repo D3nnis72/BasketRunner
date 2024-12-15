@@ -26,8 +26,8 @@ public class EnemyObject : MonoBehaviour
 
     public void DestroyEnemy()
     {
-        OnDestroyed?.Invoke(this); // Signal the manager
-        gameObject.SetActive(false); // Hide the object
+        OnDestroyed?.Invoke(this);
+        gameObject.SetActive(false);
     }
 
     public void InitializeObject(EnemyType enemyType, Transform playerTransform)

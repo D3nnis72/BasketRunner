@@ -3,10 +3,10 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [Header("Camera Settings")]
-    [SerializeField] private Transform _player;       // Reference to the player
-    [SerializeField] private Vector3 _offset = new Vector3(0, 5, -10); // Offset from the player
-    [SerializeField] private float _rotationSpeed = 5f; // Speed for rotating the camera around the player
-    [SerializeField] private float _smoothSpeed = 0.125f; // Speed for smoothing the camera's position
+    [SerializeField] private Transform _player;
+    [SerializeField] private Vector3 _offset = new Vector3(0, 5, -10);
+    [SerializeField] private float _rotationSpeed = 5f;
+    [SerializeField] private float _smoothSpeed = 0.125f;
 
     private float _currentRotationAngle;
 

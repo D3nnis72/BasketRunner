@@ -7,12 +7,11 @@ public class SliceManager : MonoBehaviour
     public Material slicedMaterial;
     public Transform sword;
 
-    // Physics for hull
-    private const float SliceForce = 5; // Balloon-like push force
+    private const float SliceForce = 5;
     private const float DestructionDelay = 1f;
-    private const float BalloonMass = 0.1f; // Very light mass
-    private const float BalloonDrag = 5f; // High drag for slow movement
-    private const float BalloonAngularDrag = 1f; // Some angular drag for stability
+    private const float BalloonMass = 0.1f;
+    private const float BalloonDrag = 5f;
+    private const float BalloonAngularDrag = 1f;
 
 
     public void SliceObject(GameObject slicedGameObject, Collision collision)
@@ -26,7 +25,6 @@ public class SliceManager : MonoBehaviour
         Vector3 slicePosition = collision.contacts[0].point;
         Vector3 swordDirection = sword.forward;
 
-        // Attempt to slice the object
         SlicedHull slicedObject = Slice(slicedGameObject, slicePosition, swordDirection);
 
         if (slicedObject == null)
@@ -42,7 +40,6 @@ public class SliceManager : MonoBehaviour
 
     private void HandleMidpointSlice(GameObject slicedGameObject)
     {
-        // Calculate the midpoint of the object's bounds
         Bounds objectBounds = slicedGameObject.GetComponent<Renderer>().bounds;
         Vector3 midpoint = objectBounds.center;
 
@@ -56,7 +53,6 @@ public class SliceManager : MonoBehaviour
             return;
         }
 
-        // Handle the sliced object as usual
         HandleSlicedObject(slicedGameObject, slicedObject, midpoint, defaultSliceDirection);
     }
 
@@ -89,10 +85,9 @@ public class SliceManager : MonoBehaviour
         Rigidbody rb = hull.AddComponent<Rigidbody>();
         BoxCollider collider = hull.AddComponent<BoxCollider>();
 
-        // Set balloon-like physics properties
-        rb.mass = BalloonMass; // Very light mass
-        rb.linearDamping = BalloonDrag; // High drag
-        rb.angularDamping = BalloonAngularDrag; // Some angular drag
+        rb.mass = BalloonMass;
+        rb.linearDamping = BalloonDrag;
+        rb.angularDamping = BalloonAngularDrag;
         rb.useGravity = true;
 
         collider.isTrigger = false; // Allow interaction but not blocking
